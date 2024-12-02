@@ -1,9 +1,21 @@
-export default function RootLayout({
+import { AppSidebar } from "@/components/app-sidebar";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { cookies } from "next/headers";
+
+export default async function Layout({
   children,
-}: Readonly<{
+}:{
   children: React.ReactNode;
-}>) {
+}) {
+  const cookieStore = await cookies()
+  const defaultOpen = cookieStore.get("sidebar:state")?.value === "true"
   return (
-      <main >{children}</main>
+    <SidebarProvider defaultOpen={defaultOpen}>
+    <AppSidebar />
+    <main>
+      <SidebarTrigger />
+      {children}
+    </main>
+  </SidebarProvider>
   );
 }
