@@ -1,10 +1,9 @@
 import { PrismaClient, Role } from '@prisma/client'
-import bcryptjs from 'bcryptjs'
+import { hashSync } from 'bcryptjs'
 const prisma = new PrismaClient()
 
-
 async function main() {
-    const hashedPassword = await bcryptjs.hash('password', 10)
+    const hashedPassword = await hashSync('password', 10)
 
       // USERS
   const users = [
